@@ -39,6 +39,14 @@ users.statics.createFromOauth = function(email) {
 
 };
 
+users.statics.authenticateBearer = function(token){
+ 
+    let parsedToken = jwt.verify(token, process.env.SECRET);
+    let id = parsedToken.id;
+    return this.findOne( {_id:id});
+
+};
+
 users.statics.authenticateBasic = function(auth) {
   let query = {username:auth.username};
   return this.findOne(query)
@@ -57,8 +65,9 @@ users.methods.generateToken = function() {
     id: this._id,
     role: this.role,
   };
-  
-  return jwt.sign(token, process.env.SECRET);
+  let expiresIn = 900;
+  let secret = process.env.SECRET + Math.random();
+  return jwt.sign(token, secret, {expiresIn});
 };
 
 module.exports = mongoose.model('users', users);
