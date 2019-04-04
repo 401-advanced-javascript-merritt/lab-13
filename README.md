@@ -4,7 +4,7 @@
 ## Lab 13
 ### Chris Merritt
 
-* [PR][1]
+* [PR](https://github.com/401-advanced-javascript-merritt/lab-13/pull/1)
 
 ### Functions
 
